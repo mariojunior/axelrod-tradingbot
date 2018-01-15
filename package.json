@@ -10,7 +10,7 @@
     "email": "gabriel@versallini.com.br"
   },
   "dependencies": {
-    "ccxt": "^1.10.705",
+    "ccxt": "^1.10.713",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
