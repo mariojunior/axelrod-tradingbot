@@ -3,10 +3,10 @@
 var lodash = require('lodash');
 
 function getFunds() {
-		return 1000.00;
+	return 1000.00;
 }
 
-let lastOpportunity = { id: null };
+let lastOpportunities = [];
 
 exports.checkOpportunity = async function(prices) {
 
@@ -14,7 +14,7 @@ exports.checkOpportunity = async function(prices) {
 	let bestAsk = lodash.minBy(prices, function(item){ return item.ask })
 
 	if (bestBid.bid > bestAsk.ask) {
-
+	
 		let funds = getFunds();
 		let amount = funds / bestAsk.ask;
 
@@ -27,27 +27,28 @@ exports.checkOpportunity = async function(prices) {
 		let percentage = ((estimatedGain / funds) * 100).toFixed(2);
 
 		let opportunity = {
-			id: bestAsk.ticket + '-' + bestAsk.name + bestBid.name,
+			id: bestAsk.ticket.toLowerCase() + '-' + bestAsk.name + '-' + bestBid.name,
 			amount: amount.toFixed(8),
 			buy_at: bestAsk.name,
 			ask: bestAsk.ask.toFixed(2),
 			sale_at: bestBid.name,
 			bid: bestBid.bid.toFixed(2)
 		}
-
-		if (lastOpportunity.id != opportunity.id && percentage >= 1.00)  {
+		
+		let index = lastOpportunities.indexOf(opportunity.id);
+		if (index == -1 && percentage >= 1.00)  {
 
 			console.log('');
 			console.info('✔ Opportunity found:');
 			console.info('  Estimated gain:', percentage, '% |', estimatedGain);
 			console.info('\n', opportunity);
-			lastOpportunity = opportunity;
+			lastOpportunities.push(opportunity.id);
 
-		} else if (lastOpportunity.id === opportunity.id && percentage < 1.00) {
+		} else if (index != -1 && percentage < 1.00) {
 
 			console.log('');
-			console.info('✔ Opportunity closed.');
-			lastOpportunity = { id: null };
+			console.info('✔ Opportunity closed:', opportunity.id);
+			lastOpportunities.splice(index);
 
 		}
 
