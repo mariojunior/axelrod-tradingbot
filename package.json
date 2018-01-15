@@ -1,5 +1,5 @@
 {
-  "name": "Axelrod Trading Bot",
+  "name": "axelrod-trading-bot",
   "description": "Trading bot for cryptocurrency",
   "version": "1.0.0",
   "scripts": {
