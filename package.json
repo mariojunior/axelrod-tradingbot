@@ -3,7 +3,9 @@
   "description": "Trading bot for cryptocurrency",
   "version": "1.0.0",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha",
+    "coverage": "nyc --reporter=html mocha"
   },
   "author": {
     "name": "Gabriel Barbosa",
@@ -15,6 +17,11 @@
   },
   "devDependencies": {
     "nodemon": "^1.14.11",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "proxyquire-2": "1.0.7",
+    "chai": "4.1.2",
+    "mocha": "^4.0.1",
+    "nyc": "11.3.0",
+    "sinon": "4.1.2"
   }
 }
